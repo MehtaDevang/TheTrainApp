@@ -150,15 +150,35 @@ def seat_availability(request):
 
     return render(request, 'seatAvailability.html', context)
 
-def train_fare(request):
-    train_number = "11061"
-    source = "jbp"
-    dest = "bsb"
-    age = "21"
-    class_code = "SL"
-    quota = "GN"
-    date = "01-01-2019"
+def fare(request):
+    return render(request, 'fare.html')
 
+def train_fare(request):
+    context = {}
+
+    train_number = ""
+    source = ""
+    dest = ""
+    age = ""
+    class_code = ""
+    quota = ""
+    date = ""
+
+    if(request.method == "POST"):
+        train_number = request.POST["train_no"]
+        source = request.POST["source"]
+        dest = request.POST["destination"]
+        age = request.POST["age"]
+        class_code = request.POST["pref"]
+        quota = request.POST["quota"]
+        date = request.POST["date"]
+
+        arr = date.split("-")
+        date = arr[2] + "-" + arr[1] + "-" + arr[0]
+
+    print(date)
+    print(class_code)
+    print(quota)
     url = "https://api.railwayapi.com/v2/fare/train/" + train_number + "/source/" + source + "/dest/" + dest + " /age/" + age + "/pref/" + class_code + "/quota/" + quota + "/date/" + date + "/apikey/"+ api_key + "/"
 
     response = requests.get(url)
@@ -167,5 +187,60 @@ def train_fare(request):
 
     print(result)
 
-    return render(request, 'index.html')
+    return render(request, 'fare.html')
 
+def route(request):
+    return render(request, 'route.html')
+
+def get_route(request):
+    context = {}
+    train_number = ""
+    if request.method == "POST":
+        train_number = request.POST["train_no"]
+
+    url = "https://api.railwayapi.com/v2/route/train/" + train_number + "/apikey/" + api_key + "/"
+    response = requests.get(url)
+    result = response.json()
+
+    print(result["route"])
+    if(result["response_code"] == 200):
+        context = {
+            "response_code" : result["response_code"],
+            "train_name" : result["train"]["name"],
+            "train_number" : train_number,
+            "route" : result["route"],
+        }
+    return render(request, 'route.html', context)
+
+
+def trains(request):
+    return render(request, 'trainsBetweenStation.html')
+
+def get_trains(request):
+    context = {}
+    source = ""
+    dest = ""
+    date = ""
+
+    if(request.method == "POST"):
+        source = request.POST["source"]
+        dest = request.POST["destination"]
+        date = request.POST["date"]
+
+        arr = date.split("-")
+        date = arr[2] + "-" + arr[1] + "-" + arr[0]
+
+    url = "https://api.railwayapi.com/v2/between/source/" + source + "/dest/" + dest + "/date/" + date + "/apikey/" + api_key + "/"
+    response = requests.get(url)
+    result = response.json()
+
+    for train in result["trains"]:
+        print(train)
+
+    if(result["response_code"] == 200):
+        context = {
+            "response_code" : result["response_code"],
+            "trains" : result["trains"],
+        }
+
+    return render(request, 'trainsBetweenStation.html', context)

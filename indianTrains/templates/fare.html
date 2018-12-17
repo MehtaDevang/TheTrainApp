@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fare Enquiry</title>
+</head>
+<body>
+    <center>
+        <h2>Fare Enquiry</h2>
+        <p>Get the price of tickets for your journey.</p><br>
+
+        <form method="post" action="{% url 'train_fare' %}">
+            {% csrf_token %}
+            <label>Train Number: </label><input type="text" maxlength="5" minlength="5" name="train_no"><br>
+            <label>Source: </label><input type="text" name="source">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>Destination: </label><input type="text" name="destination"><br>
+            <label>Age: </label><input type="number" name="age">&nbsp;&nbsp;&nbsp;&nbsp;<label>Date: </label><input type="date" name="date"><br>
+            <label>Class: </label>
+            <select name="pref" required>
+                <option value="SL">Sleeper</option>
+                <option value="CC">AC Chair Car</option>
+                <option value="3A">AC 3 Tier</option>
+                <option value="FC">First Class</option>
+                <option value="2A">AC 2-Tier Sleeper</option>
+                <option value="1A">AC First Class</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>Quota: </label>
+            <select name="quota" required>
+                <option value="GN">General</option>
+                <option value="TQ">Tatkal</option>
+                <option value="LD">Ladies</option>
+                <option value="HP">Physically Handicapped</option>
+                <option value="DF">Defence</option>
+            </select><br><br>
+            <button type="submit">Get Fare</button>
+
+        </form>
+
+    </center>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trains Between Station</title>
+</head>
+<body>
+    <center>
+        <h2>Trains Between Stations</h2>
+        <p>Get the list of trains between the source and the destination.</p>
+
+        <div>
+            <form method="post" action="{% url 'get_trains' %}">
+                {% csrf_token %}
+                <label>Source: </label><input type="text" name="source"><br>
+                <label>Destination: </label><input type="text" name="destination"><br>
+                <label>Date: </label><input type="date" name="date"><br><br>
+                <button type="submit">Get Trains</button>
+            </form>
+        </div>
+    </center>
+    <br><br><br>
+    <center>
+        <div>
+            {% if response_code == 200 %}
+                 <table style="border-collapse: collapse">
+                     <thead>
+                        <tr style="border:1px solid black; padding:6px;">
+                            <th>Train Name</th>
+                            <th>Train Number</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Arrival Source</th>
+                            <th>Arrival Destination</th>
+                            <th>Travel Time</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for train in trains %}
+                            <tr>
+                                <td>{{ train.name }}</td>
+                                <td>{{ train.number }}</td>
+                                <td>{{ train.from_station.code }}</td>
+                                <td>{{ train.to_station.code }}</td>
+                                <td>{{ train.src_departure_time }}</td>
+                                <td>{{ train.dest_arrival_time }}</td>
+                                <td>{{ train.travel_time }}</td>
+                            </tr>
+                        {% endfor %}
+                     </tbody>
+                 </table>
+            {% endif %}
+        </div>
+    </center>
+</body>
+</html>

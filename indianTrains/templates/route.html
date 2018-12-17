@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Route</title>
+</head>
+<body>
+    <center>
+        <h2>Train Routes</h2>
+        <p>Get the intermediate stations along the route of your train.</p>
+
+        <div>
+            <form action="{% url 'get_route' %}" method="post">
+                {% csrf_token %}
+                <label>Train Number: </label><input type="text" maxlength="5" minlength="5" name="train_no"><br><br>
+                <button type="submit">Get Route</button>
+            </form>
+        </div>
+    </center>
+    <br><br>
+    <center>
+        <div>
+            {% if response_code == 200 %}
+                <h3>TRAIN ROUTE:</h3><br><br>
+                <b>Train Name: </b>{{ train_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Train Number: </b>{{ train_number}}<br><br>
+
+                <table>
+                    <tr>
+                        <th>Station Name</th>
+                        <th>Station Code</th>
+                        <th>Scheduled Arrival</th>
+                        <th>Scheduled Departure</th>
+                        <th>Distance</th>
+                        <th>Day</th>
+                    </tr>
+                    {% for s in route %}
+                        <tr>
+                            <td>{{ s.station.name }}</td>
+                            <td>{{ s.station.code}}</td>
+                            <td>{{ s.scharr }}</td>
+                            <td>{{ s.schdep }}</td>
+                            <td>{{ s.distance }}</td>
+                            <td>{{ s.day }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </center>
+</body>
+</html>
