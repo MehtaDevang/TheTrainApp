@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seat Availability</title>
+</head>
+<body>
+    <h2>Seat Availability</h2>
+    <p>Get the latest status of the available seats in your desired trains.</p>
+    <div>
+        <form action="{% url 'seat_availability' %}">
+            {% csrf_token %}
+            <label>Train_number: </label><input type="text" maxlength="5" minlength="5" name="train_no" required><br>
+            <label>Source(Code): </label><input type="text" name="source" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>Destination(Code): </label><input type="text" name="dest" required><br>
+            <label>Date: </label><input type="date" name="date" required><br>
+            <label>Class: </label>
+            <select name="pref" required>
+                <option value="SL">Sleeper</option>
+                <option value="CC">AC Chair Car</option>
+                <option value="3A">AC 3 Tier</option>
+                <option value="FC">First Class</option>
+                <option value="2A">AC 2-Tier Sleeper</option>
+                <option value="1A">AC First Class</option>
+            </select><br>
+            <label>Quota: </label>
+            <select name="quota" required>
+                <option value="GN">General</option>
+                <option value="TQ">Tatkal</option>
+                <option value="LD">Ladies</option>
+                <option value="HP">Physically Handicapped</option>
+                <option value="DF">Defence</option>
+            </select><br>
+            <button type="submit">Get Availability</button>
+        </form>
+    </div>
+
+    <div>
+        {% if response_code == 200 %}
+            <b>Train Number: </b>{{ train_number}}<br>
+            <b>Train Name: </b>{{ train_name}}<br>
+            <b>From: </b>{{ from }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>To: </b>{{ to }}<br>
+            <b>Class: </b>{{ class }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Quota: </b>{{ quota }}<br>
+            <h3>Avalability: </h3>
+            <ol>
+                {% for dates in availability %}
+                    <li>
+                        <b> Date: </b>{{ dates.date }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Seats: </b>{{ dates.status}}
+                    </li>
+                {% endfor %}
+            </ol>
+        {% elif response_code == 210 %}
+            <b>Availability: {{ status }}</b>
+        {% endif %}
+    </div>
+</body>
+</html>

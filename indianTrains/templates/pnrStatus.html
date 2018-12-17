@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pnr Status</title>
+</head>
+<body>
+    <h2>Pnr Status</h2>
+    <p>Get the latest information about your pnr status.</p>
+    <div>
+        <form method="post" action="{% url 'pnr_status' %}">
+            {% csrf_token %}
+            <label>Pnr Number :</label>
+            <input type="text" maxlength="10" minlength="10" name="pnr_number"><br>
+            <button type="submit">Get Pnr Status</button>
+        </form>
+    </div>
+    <div>
+        {% if response_code == 200 %}
+            {% for passenger in passengers %}
+                <b>Booking Status: </b>{{ passenger.booking_status }}&nbsp;&nbsp;&nbsp;&nbsp;<b>Current Status: </b>{{ passenger.current_status }}&nbsp;&nbsp;&nbsp;&nbsp;<b>Chart Prepared: {{ chart_prepared }}</b><br>
+
+            {% endfor %}
+        {% elif response_code == 221 %}
+            <b>{{ position }}</b>
+        {% endif %}
+    </div>
+</body>
+</html>

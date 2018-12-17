@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Live Status</title>
+</head>
+
+{% load static %}
+<body>
+    <h2>Get Live Status</h2>
+    <p>Get the current running status of your train</p>
+    <form method="post" action="{% url 'get_status' %}">
+        {% csrf_token %}
+        <label>Train Number: </label>
+        <input type="text" maxlength="5" minlength="5" name="train_no"><br>
+        <label>Date: </label>
+        <input type="date" name="date"><br>
+        <button type="submit">Get Status</button>
+    </form>
+
+    <div>
+        <ul>
+            {% if response_code == 200 %}
+                {% for data in station_data %}
+                    <li>{{ data }}</li>
+                {% endfor %}
+                <p><b>Status: </b> {{ current_station }}</p>
+            {% endif %}
+            {% if response_code == 210 %}
+                <p><b>Status: </b> {{ current_station }}</p>
+            {% endif %}
+        </ul>
+
+    </div>
+</body>
+</html>
