@@ -36,6 +36,35 @@
 
         </form>
 
+        <div>
+            {% if response_code == 200 %}
+                <h3>Fare Details:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Train Name</th>
+                            <th>Train Number</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Class</th>
+                            <th>Quota</th>
+                            <th>Total Fare</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ train_name }}</td>
+                            <td>{{ train_number }}</td>
+                            <td>{{ from }}</td>
+                            <td>{{ to }}</td>
+                            <td>{{ class }}</td>
+                            <td>{{ quota }}</td>
+                            <td>{{ fare }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
     </center>
 </body>
 </html>

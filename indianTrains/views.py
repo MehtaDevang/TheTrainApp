@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests, json
+from django.http import JsonResponse
 from django.http import HttpResponse
 # Create your views here.
 
@@ -8,15 +9,15 @@ api_key = "j3whwk24af"
 base_url = "https://api.railwayapi.com/v2/live/train/"
 
 def homepage(request):
-    print("hello TheTrainApp")
-    return render(request, 'index.html')
+    return render(request, 'homepage.html')
 
 def liveStatus(request):
-    return render(request, 'liveStatus.html')
+    return render(request, 'homepage.html')
 
 def get_status(request):
     date = ""
     train_number = ""
+    context = {}
 
     if(request.method == "POST"):
         train_number = request.POST['train_no']
@@ -24,38 +25,39 @@ def get_status(request):
 
     arr = date.split("-")
     date = arr[2] + "-" + arr[1] + "-" + arr[0]
-    print(train_number)
-    print(date)
+
     complete_url = base_url + train_number + "/date/" + date + "/apikey/" + api_key + "/"
-    print(complete_url)
     response = requests.get(complete_url)
 
     result = response.json()
-    station_data = []
     print(result["response_code"])
     if(result["response_code"] == 200):
         # print(result)
-        for list in result["route"]:
-            str = list["station"]["name"] + " " + list["station"]["code"] + " " + list["schdep"] + " " + list["actdep"]
-            # print(str)
-            station_data.append(str)
+
         context = {
-            "station_data": station_data,
+            "train_name" : result["train"]["name"],
+            "train_number" : result["train"]["number"],
+            "route": result["route"],
             "current_station": result["position"],
             "response_code" : result["response_code"],
+            "module": "get_status",
         }
-        print(result["position"])
-        for data in station_data:
-            print(data)
+
 
     elif(result["response_code"] == 210):
         context= {
             "current_station" : "Train does not run on the specified date.",
             "response_code" : result["response_code"],
+            "module" : "get_status",
         }
 
-    print(context["response_code"])
-    return render(request, 'liveStatus.html', context)
+    else:
+        context = {
+            "current_station" : "Query cannot be processed at the moment",
+            "response_code" : result["response_code"],
+            "module": "get_status",
+        }
+    return render(request, 'homepage.html', context)
 
 
 def pnrStatus(request):
@@ -89,15 +91,17 @@ def pnr_status(request):
             "response_code" : result["response_code"],
             "passengers" : passengers,
             "chart_prepared" : result["chart_prepared"],
+            "module": "pnr_status",
         }
 
     elif(result["response_code"] == 221):
         context = {
             "response_code" : result["response_code"],
             "position" : "Invalid Pnr",
+            "module": "pnr_status",
         }
     print(context)
-    return render(request, 'pnrStatus.html', context)
+    return render(request, 'homepage.html', context)
 
 def seatAvailability(request):
     return render(request, 'seatAvailability.html')
@@ -186,8 +190,20 @@ def train_fare(request):
     result = response.json()
 
     print(result)
+    if(result["response_code"] == 200):
+        context = {
+            "response_code" : result["response_code"],
+            "from" : result["from_station"]["name"],
+            "to" : result["to_station"]["name"],
+            "train_name" : result["train"]["name"],
+            "train_number" : result["train"]["number"],
+            "class" : class_code,
+            "quota" : quota,
+            "fare" : result["fare"],
+            "module": "train_fare",
+        }
 
-    return render(request, 'fare.html')
+    return render(request, 'fare.html', context)
 
 def route(request):
     return render(request, 'route.html')
@@ -209,8 +225,9 @@ def get_route(request):
             "train_name" : result["train"]["name"],
             "train_number" : train_number,
             "route" : result["route"],
+            "module": "get_route",
         }
-    return render(request, 'route.html', context)
+    return render(request, 'homepage.html', context)
 
 
 def trains(request):
@@ -241,6 +258,7 @@ def get_trains(request):
         context = {
             "response_code" : result["response_code"],
             "trains" : result["trains"],
+            "module": "get_trains",
         }
 
-    return render(request, 'trainsBetweenStation.html', context)
+    return render(request, 'homepage.html', context)

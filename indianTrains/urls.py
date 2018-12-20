@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     url('homepage', views.homepage, name='homepage'),
-    url('get_status', views.get_status, name='get_status'),
+    url('^get_status', views.get_status, name='get_status'),
     # url('station_codes', views.station, name='station_codes'),
     url('seat_availability', views.seat_availability, name='seat_availability'),
     url(r'^seats', views.seatAvailability, name='seatAvailability'),

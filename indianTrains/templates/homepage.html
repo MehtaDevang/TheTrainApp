@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TheTrainApp</title>
+    {% load static %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{% static 'homepage.css' %}" rel="stylesheet" type="text/css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+
+</head>
+<body>
+
+    <div class="container">
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+     <div class="mail-box">
+                      <aside class="sm-side">
+                          <div class="user-head">
+                              <center>
+                                  <div class="user-name">
+                                      <h3>TheTrainApp</h3>
+                                  </div>
+                              </center>
+                          </div>
+                          <div class="inbox-body">
+                              <a href="#myModal" data-toggle="modal"  title="Compose"    class="btn btn-compose">
+                                  Compose
+                              </a>
+                              <!-- Modal -->
+                              <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+                                  <div class="modal-dialog">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                              <h4 class="modal-title">Compose</h4>
+                                          </div>
+                                          <div class="modal-body">
+                                              <form role="form" class="form-horizontal">
+                                                  <div class="form-group">
+                                                      <label class="col-lg-2 control-label">To</label>
+                                                      <div class="col-lg-10">
+                                                          <input type="text" placeholder="" id="inputEmail1" class="form-control">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-lg-2 control-label">Cc / Bcc</label>
+                                                      <div class="col-lg-10">
+                                                          <input type="text" placeholder="" id="cc" class="form-control">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-lg-2 control-label">Subject</label>
+                                                      <div class="col-lg-10">
+                                                          <input type="text" placeholder="" id="inputPassword1" class="form-control">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-lg-2 control-label">Message</label>
+                                                      <div class="col-lg-10">
+                                                          <textarea rows="10" cols="30" class="form-control" id="" name=""></textarea>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="form-group">
+                                                      <div class="col-lg-offset-2 col-lg-10">
+                                                          <span class="btn green fileinput-button">
+                                                            <i class="fa fa-plus fa fa-white"></i>
+                                                            <span>Attachment</span>
+                                                            <input type="file" name="files[]" multiple="">
+                                                          </span>
+                                                          <button class="btn btn-send" type="submit">Send</button>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                          </div>
+                                      </div><!-- /.modal-content -->
+                                  </div><!-- /.modal-dialog -->
+                              </div><!-- /.modal -->
+                          </div>
+                          <ul class="inbox-nav inbox-divider">
+                              <li class="active">
+                                  <a href="{% url 'liveStatus'%}"><i class="fa fa-inbox"></i> Live Train Status <span class="label label-danger pull-right">2</span></a>
+                              </li>
+
+                              <li>
+                                  <a href="{% url 'pnrStatus' %}"><i class="fa fa-envelope-o"></i> Pnr Status</a>
+                              </li>
+                              <li>
+                                  <a href="{% url 'seatAvailability' %}"><i class="fa fa-bookmark-o"></i> Seat Availability</a>
+                              </li>
+                              <li>
+                                  <a href="{% url 'trains' %}"><i class=" fa fa-external-link"></i> Trains Between Stations <span class="label label-info pull-right">30</span></a>
+                              </li>
+                              <li>
+                                  <a href="{% url 'route' %}"><i class=" fa fa-trash-o"></i> Train Route</a>
+                              </li>
+                              <li>
+                                  <a href="{% url 'fare' %}"><i class=" fa fa-trash-o"></i> Ticket Fare</a>
+                              </li>
+                          </ul>
+                          <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
+                              <li> <h4>Labels</h4> </li>
+                              <li> <a href="#"> <i class=" fa fa-sign-blank text-danger"></i> Work </a> </li>
+                              <li> <a href="#"> <i class=" fa fa-sign-blank text-success"></i> Design </a> </li>
+                              <li> <a href="#"> <i class=" fa fa-sign-blank text-info "></i> Family </a>
+                              </li><li> <a href="#"> <i class=" fa fa-sign-blank text-warning "></i> Friends </a>
+                              </li><li> <a href="#"> <i class=" fa fa-sign-blank text-primary "></i> Office </a>
+                              </li>
+                          </ul>
+                          <ul class="nav nav-pills nav-stacked labels-info ">
+                              <li> <h4>Buddy online</h4> </li>
+                              <li> <a href="#"> <i class=" fa fa-circle text-success"></i>Alireza Zare <p>I do not think</p></a>  </li>
+                              <li> <a href="#"> <i class=" fa fa-circle text-danger"></i>Dark Coders<p>Busy with coding</p></a> </li>
+                              <li> <a href="#"> <i class=" fa fa-circle text-muted "></i>Mentaalist <p>I out of control</p></a>
+                              </li><li> <a href="#"> <i class=" fa fa-circle text-muted "></i>H3s4m<p>I am not here</p></a>
+                              </li><li> <a href="#"> <i class=" fa fa-circle text-muted "></i>Dead man<p>I do not think</p></a>
+                              </li>
+                          </ul>
+
+                          <div class="inbox-body text-center">
+                              <div class="btn-group">
+                                  <a class="btn mini btn-primary" href="javascript:;">
+                                      <i class="fa fa-plus"></i>
+                                  </a>
+                              </div>
+                              <div class="btn-group">
+                                  <a class="btn mini btn-success" href="javascript:;">
+                                      <i class="fa fa-phone"></i>
+                                  </a>
+                              </div>
+                              <div class="btn-group">
+                                  <a class="btn mini btn-info" href="javascript:;">
+                                      <i class="fa fa-cog"></i>
+                                  </a>
+                              </div>
+                          </div>
+
+                      </aside>
+                      <aside class="lg-side">
+                          <div class="inbox-head">
+                              <h3>Inbox</h3>
+                              <form action="#" class="pull-right position">
+                                  <div class="input-append">
+                                      <input type="text" class="sr-input" placeholder="Search Mail">
+                                      <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="inbox-body">
+                             <div class="mail-option">
+                                 <div class="chk-all">
+                                     <input type="checkbox" class="mail-checkbox mail-group-checkbox">
+                                     <div class="btn-group">
+                                         <a data-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
+                                             All
+                                             <i class="fa fa-angle-down "></i>
+                                         </a>
+                                         <ul class="dropdown-menu">
+                                             <li><a href="#"> None</a></li>
+                                             <li><a href="#"> Read</a></li>
+                                             <li><a href="#"> Unread</a></li>
+                                         </ul>
+                                     </div>
+                                 </div>
+
+                                 <div class="btn-group">
+                                     <a data-original-title="Refresh" data-placement="top" data-toggle="dropdown" href="#" class="btn mini tooltips">
+                                         <i class=" fa fa-refresh"></i>
+                                     </a>
+                                 </div>
+                                 <div class="btn-group hidden-phone">
+                                     <a data-toggle="dropdown" href="#" class="btn mini blue" aria-expanded="false">
+                                         More
+                                         <i class="fa fa-angle-down "></i>
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                         <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                         <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                         <li class="divider"></li>
+                                         <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="btn-group">
+                                     <a data-toggle="dropdown" href="#" class="btn mini blue">
+                                         Move to
+                                         <i class="fa fa-angle-down "></i>
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                         <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                         <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                         <li class="divider"></li>
+                                         <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                     </ul>
+                                 </div>
+
+                                 <ul class="unstyled inbox-pagination">
+                                     <li><span>1-50 of 234</span></li>
+                                     <li>
+                                         <a class="np-btn" href="#"><i class="fa fa-angle-left  pagination-left"></i></a>
+                                     </li>
+                                     <li>
+                                         <a class="np-btn" href="#"><i class="fa fa-angle-right pagination-right"></i></a>
+                                     </li>
+                                 </ul>
+                             </div>
+
+                    <!-- forms start here -->
+                    <div id="form1" style="">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                                <form role="form" action="{% url 'get_status' %}" method="post">
+                                    {% csrf_token %}
+                                    <h2>Live Train Status</h2>
+                                    <hr class="colorgraph">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="train_no" id="first_name" class="form-control input-lg" placeholder="Train Number" tabindex="1">
+                                            </div>
+                                        </div>
+                                         <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="date" name="date" id="last_name" class="form-control input-lg" placeholder="Date" tabindex="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <center>
+                                            <input id = "train_status" type="submit" value="Get Status" class="btn btn-primary btn-block btn-sm" tabindex="7">
+                                            <button type="reset" class="btn btn-success btn-block btn-sm">Reset</button>
+                                        </center>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <br><br>
+                                                {% if response_code == 200 and module == 'get_status' %}
+                                                    <b>Current Status: </b>{{ current_station }}<br><br>
+                                                  <table class="table table-inbox table-hover">
+                                                      <thead>
+                                                            <tr>
+                                                                <th>Station </th>
+                                                                <th>Scheduled Arrival Time</th>
+                                                                <th>Actual Arrival Time</th>
+                                                                <th>Scheduled Departure Time</th>
+                                                                <th>Actual Departure Time</th>
+                                                            </tr>
+                                                      </thead>
+                                                    <tbody>
+
+                                                            {% for s in route %}
+                                                              <tr class="unread">
+                                                                  <td class="view-message">{{ s.station.name }} ({{s.station.code}})</td>
+                                                                  <td class="view-message">{{ s.scharr }}</td>
+                                                                  <td class="view-message">{{ s.actarr }}</td>
+                                                                  <td class="view-message">{{ s.schdep }}</td>
+                                                                  <td class="view-message">{{ s.actdep }}</td>
+                                                              </tr>
+                                                            {% endfor %}
+                                                    </tbody>
+                                                  </table>
+                                                 }
+
+                                              {% elif response_code == 210 and module == 'get_status' %}
+                                                <b>Current Status: </b>{{ current_station }}
+
+                                              {% elif response_code == 502 and data.module == 'get_status' %}
+                                                <b>Current Status: </b>{{ current_station }}
+                                              {% endif %}
+                    </div>
+
+                              <!-- forms end here -->
+
+                          <!-- pnr status form starts here-->
+                          <div id="pnrStatusForm" style="">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                                        <form role="form" action="{% url 'pnr_status' %}" method="post">
+                                            {% csrf_token %}
+                                            <h2>Check Pnr Status</h2>
+                                            <hr class="colorgraph">
+                                            <div class="row">
+                                                <center>
+                                                    <div class="">
+                                                        <div class="form-group">
+                                                            <input type="text" name="pnr_number" id="first_name" class="form-control input-lg" placeholder="Train Number" tabindex="1">
+                                                        </div>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                            <div class="row">
+                                                <center>
+                                                    <input type="submit" value="Get Status" class="btn btn-primary btn-block btn-sm" tabindex="7">
+                                                    <button type="reset" class="btn btn-success btn-block btn-sm">Reset</button>
+                                                </center>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <br><br>
+                                      {% if response_code == 200 and module == 'pnr_status' %}
+                                          <b>Current Status: </b>{{ current_station }}<br><br>
+                                          <table class="table table-inbox table-hover">
+                                              <thead>
+                                                    <tr>
+                                                        <th>Passenger </th>
+                                                        <th>Booking Status</th>
+                                                        <th>Current Status</th>
+                                                    </tr>
+                                              </thead>
+                                            <tbody>
+
+                                                    {% for passenger in passengers %}
+                                                      <tr class="unread">
+                                                          <td class="view-message">{{ forloop.counter }}</td>
+                                                          <td class="view-message">{{ passenger.booking_status }}</td>
+                                                          <td class="view-message">{{ passenger.current_status }}</td>
+                                                      </tr>
+                                                    {% endfor %}
+                                            </tbody>
+                                          </table>
+                                      {% elif response_code == 221 and module == 'pnr_status' %}
+                                        <b>Current Status: </b>{{ position }}
+
+                                      {% endif %}
+                            </div>
+                              <!-- forms end here -->
+            <!-- pnr status form ends here -->
+
+            <!-- Trains between stations form starts here -->
+                <div id="trainsBetweenStationsForm" style="">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                                        <form role="form" action="{% url 'get_trains' %}" method="post">
+                                            {% csrf_token %}
+                                            <h2>Trains Between Stations</h2>
+                                            <hr class="colorgraph">
+                                            <div class="row">
+                                                <center>
+                                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="source" id="first_name" class="form-control input-lg" placeholder="Source Station" tabindex="1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="destination" id="first_name" class="form-control input-lg" placeholder="Destination Station" tabindex="1">
+                                                        </div>
+                                                    </div>
+                                                </center>
+                                                 <div class="col-xs-12 col-sm-6 col-md-6">
+                                                     <div class="form-group">
+                                                         <input type="date" name="date" id="first_name" class="form-control input-lg" placeholder="Destination Station" tabindex="1">
+                                                     </div>
+                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <center>
+                                                    <input type="submit" value="Get Trains" class="btn btn-primary btn-block btn-sm" tabindex="7">
+                                                    <button type="reset" class="btn btn-success btn-block btn-sm">Reset</button>
+                                                </center>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <br><br>
+                                      {% if response_code == 200 and module == 'get_trains' %}
+                                          <b>Current Status: </b>{{ current_station }}<br><br>
+                                          <table class="table table-inbox table-hover">
+                                              <thead>
+                                                    <tr>
+                                                        <th>Train Name</th>
+                                                        <th>Train Number</th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Arrival Source</th>
+                                                        <th>Arrival Destination</th>
+                                                        <th>Travel Time</th>
+                                                    </tr>
+                                              </thead>
+                                            <tbody>
+
+                                                    {% for train in trains %}
+                                                      <tr class="unread">
+                                                          <td class="view-message">{{ train.name }}</td>
+                                                          <td class="view-message">{{ train.number }}</td>
+                                                          <td class="view-message">{{ train.from_station.code }}</td>
+                                                          <td class="view-message">{{ train.to_station.code }}</td>
+                                                          <td class="view-message">{{ train.src_departure_time }}</td>
+                                                          <td class="view-message">{{ train.dest_arrival_time }}</td>
+                                                          <td class="view-message">{{ train.travel_time }}</td>
+                                                      </tr>
+                                                    {% endfor %}
+                                            </tbody>
+                                          </table>
+
+                                      {% endif %}
+                            </div>
+                              <!-- forms end here -->
+            <!-- Trains between stations form ends here -->
+
+                              <!-- Trains Route form starts here -->
+                <div id="trainsRouteForm" style="">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                                        <form role="form" action="{% url 'get_route' %}" method="post">
+                                            {% csrf_token %}
+                                            <h2>Trains Route</h2>
+                                            <hr class="colorgraph">
+                                            <div class="row">
+                                                <center>
+                                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="train_no" id="first_name" class="form-control input-lg" placeholder="Train Number" tabindex="1" maxlength="5" minlength="5">
+                                                        </div>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                            <div class="row">
+                                                <center>
+                                                    <input type="submit" value="Get Route" class="btn btn-primary btn-block btn-sm" tabindex="7">
+                                                    <button type="reset" class="btn btn-success btn-block btn-sm">Reset</button>
+                                                </center>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <br><br>
+                                      {% if response_code == 200 and module == 'get_route' %}
+                                        <b>{{ train_name }} ({{ train_number}})</b><br><br>
+                                          <table class="table table-inbox table-hover">
+                                              <thead>
+                                                    <tr>
+                                                        <th>Station Name</th>
+                                                        <th>Station Code</th>
+                                                        <th>Scheduled Arrival</th>
+                                                        <th>Scheduled Departure</th>
+                                                        <th>Distance</th>
+                                                        <th>Day</th>
+                                                    </tr>
+                                              </thead>
+                                            <tbody>
+
+                                                    {% for s in route %}
+                                                      <tr class="unread">
+                                                          <td class="view-message">{{ s.station.name }}</td>
+                                                          <td class="view-message">{{ s.station.code }}</td>
+                                                          <td class="view-message">{{ s.scharr }}</td>
+                                                          <td class="view-message">{{ s.schdep }}</td>
+                                                          <td class="view-message">{{ s.distance }}</td>
+                                                          <td class="view-message">{{ s.day }}</td>
+                                                      </tr>
+                                                    {% endfor %}
+                                            </tbody>
+                                          </table>
+
+                                      {% endif %}
+                            </div>
+                              <!-- forms end here -->
+            <!-- Trains Route form ends here -->
+
+                        </div>
+                      </aside>
+                  </div>
+    </div>
+</body>
+
+</html>
