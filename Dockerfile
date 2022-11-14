@@ -31,4 +31,5 @@ RUN ls /src/api
 EXPOSE 9005
 WORKDIR /src/api
 
+# running the project on 9005 port which was exposed earlier
 ENTRYPOINT [ "python", "manage.py", "runserver", "0.0.0.0:9005"]
